@@ -1,0 +1,92 @@
+[
+  {
+    "question": "Học phí cho sinh viên năm nhất ngành Công nghệ thông tin là bao nhiêu?",
+    "ground_truth_answer": "Học phí được tính theo số tín chỉ, mỗi tín chỉ có mức phí cụ thể theo quy định của trường.",
+    "relevant_doc_ids": ["quy_dinh_hoc_phi.md"]
+  },
+  {
+    "question": "Điều kiện để nhận học bổng khuyến khích học tập là gì?",
+    "ground_truth_answer": "Sinh viên cần có điểm trung bình tích lũy tối thiểu 8.0 và không có môn nào bị điểm F.",
+    "relevant_doc_ids": ["hoc_bong.md"]
+  },
+  {
+    "question": "Thời hạn đăng ký ký túc xá cho sinh viên mới là khi nào?",
+    "ground_truth_answer": "Đăng ký ký túc xá trong vòng 2 tuần trước khi khai giảng.",
+    "relevant_doc_ids": ["ky_tuc_xa.md"]
+  },
+  {
+    "question": "Quy định về số lượng tín chỉ tối đa mỗi học kỳ là bao nhiêu?",
+    "ground_truth_answer": "Số tín chỉ tối đa mỗi học kỳ là 24 tín chỉ, trừ học kỳ cuối khóa.",
+    "relevant_doc_ids": ["quy_dinh_tin_chi.md"]
+  },
+  {
+    "question": "Thư viện trường mở cửa đến mấy giờ?",
+    "ground_truth_answer": "Thư viện mở cửa từ 7 giờ sáng đến 10 giờ tối các ngày làm việc.",
+    "relevant_doc_ids": ["thu_vien.md"]
+  },
+  {
+    "question": "Làm sao để đăng ký học phần trực tuyến?",
+    "ground_truth_answer": "Sinh viên đăng nhập vào cổng thông tin sinh viên, chọn mục đăng ký học phần trong thời gian mở đăng ký.",
+    "relevant_doc_ids": ["dang_ky_hoc_phan.md"]
+  },
+  {
+    "question": "Chính sách hoàn tiền học phí khi nghỉ học được thực hiện như thế nào?",
+    "ground_truth_answer": "Sinh viên được hoàn 70% học phí nếu nghỉ học trong 2 tuần đầu, không hoàn tiền sau thời gian này.",
+    "relevant_doc_ids": ["hoan_tien.md"]
+  },
+  {
+    "question": "Phí dịch vụ thư viện bao gồm những gì?",
+    "ground_truth_answer": "Phí dịch vụ bao gồm phí mượn sách, phí trả trễ và phí làm thẻ thư viện mới.",
+    "relevant_doc_ids": ["thu_vien.md"]
+  },
+  {
+    "question": "Điều kiện để được chuyển ngành là gì?",
+    "ground_truth_answer": "Sinh viên phải học ít nhất 1 năm, có điểm trung bình từ 7.0 trở lên và không vi phạm kỷ luật.",
+    "relevant_doc_ids": ["chuyen_nganh.md"]
+  },
+  {
+    "question": "Quy định về thời gian nộp học phí là khi nào?",
+    "ground_truth_answer": "Học phí phải được nộp trước ngày 15 của tháng đầu mỗi học kỳ.",
+    "relevant_doc_ids": ["quy_dinh_hoc_phi.md"]
+  },
+  {
+    "question": "Sinh viên có được phép học vượt tín chỉ không?",
+    "ground_truth_answer": "Sinh viên có thể đăng ký vượt tối đa 6 tín chỉ nếu có điểm trung bình từ 8.5 trở lên.",
+    "relevant_doc_ids": ["dang_ky_hoc_phan.md"]
+  },
+  {
+    "question": "Các loại học bổng nào được trường cung cấp cho sinh viên?",
+    "ground_truth_answer": "Trường cung cấp học bổng khuyến khích học tập, học bổng tài năng, học bổng doanh nghiệp và học bổng hỗ trợ tài chính.",
+    "relevant_doc_ids": ["hoc_bong.md"]
+  },
+  {
+    "question": "Cách tính điểm trung bình tích lũy (GPA) như thế nào?",
+    "ground_truth_answer": "GPA = Tổng (điểm chữ × số tín chỉ) / Tổng số tín chỉ đã học.",
+    "relevant_doc_ids": ["quy_dinh_diem.md"]
+  },
+  {
+    "question": "Thủ tục xin nghỉ học tạm thời cần những gì?",
+    "ground_truth_answer": "Sinh viên cần nộp đơn xin nghỉ học có chữ ký phụ huynh và được phép của khoa.",
+    "relevant_doc_ids": ["nghi_hoc.md"]
+  },
+  {
+    "question": "Hỗ trợ tài chính nào dành cho sinh viên có hoàn cảnh khó khăn?",
+    "ground_truth_answer": "Trường hỗ trợ qua quỹ từ thiện, vay vốn ưu đãi và miễn giảm học phí theo điều kiện cụ thể.",
+    "relevant_doc_ids": ["hoc_bong.md"]
+  },
+  {
+    "question": "Cách đăng ký thi lại một môn học?",
+    "ground_truth_answer": "Sinh viên đăng ký thi lại qua cổng thông tin trong thời gian đăng ký học phần.",
+    "relevant_doc_ids": ["dang_ky_hoc_phan.md"]
+  },
+  {
+    "question": "AI là gì và nó hoạt động như thế nào?",
+    "ground_truth_answer": "Xin lỗi, câu hỏi này không liên quan đến chủ đề dịch vụ đại học.",
+    "relevant_doc_ids": []
+  },
+  {
+    "question": "Cách nấu món phở Hà Nội ngon?",
+    "ground_truth_answer": "Xin lỗi, câu hỏi này không liên quan đến chủ đề dịch vụ đại học.",
+    "relevant_doc_ids": []
+  }
+]
