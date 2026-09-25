@@ -38,7 +38,7 @@
 | Task 10 — Generation kèm citation | Sinh câu trả lời có citation `[1]`, `[2]`, … và danh sách nguồn | `src/task10_generation.py` (`generate_answer`) | `258808e` |
 | Streamlit UI | Chatbot hiển thị câu trả lời và nguồn đã dùng | `app.py` | `258808e` |
 
-- Báo cáo cá nhân: `group_project/individual/INDIVIDUAL_REPORT_NGUYEN_MINH_TUAN.md` (commit `8c74851`, hiện **đang bị xoá ở working tree** — xem mục 5).
+- Báo cáo cá nhân: [`reports/2A202602897-NguyenThiVang.md`](reports/2A202602897-NguyenThiVang.md).
 
 ### 👤 2. Nguyễn Minh Tuấn — 2A202602420 — `minhtuann1102`
 
@@ -52,7 +52,7 @@
 | Unit test tầng search | 29 test cho chunking + dense + BM25, coverage 91% cho 3 module | `tests/test_pipeline_search.py` | `26d22a2` |
 | Kiểm chứng ChromaDB / Gemini | Script kiểm tra DB và embedding model | `check_chroma.py`, `check_sqlite.py`, `list_gemini_models.py`, `test_gemini_embed.py` | `32f5103` |
 
-- Báo cáo cá nhân: [`reports/2A202602420-NguyenMinhTuan.md`](reports/2A202602420-NguyenMinhTuan.md) (commit `245bf63`).
+- Báo cáo cá nhân: [`reports/2A202602420-NguyenMinhTuan.md`](reports/2A202602420-NguyenMinhTuan.md) (commit `245bf63`, cập nhật tại `b6caabf`).
 
 ### 👤 3. Nguyễn Minh Thắng — *mã học viên cần xác nhận* — `Thang-Nguyen-Minh`
 
@@ -97,7 +97,5 @@
 ## 5. Việc cần thống nhất / bổ sung
 
 - [ ] **Mã học viên của Nguyễn Minh Thắng** chưa xuất hiện ở bất kỳ file/commit nào trong repo → cần điền vào bảng mục 1.
-- [ ] **Báo cáo cá nhân còn thiếu:** README yêu cầu mỗi thành viên nộp một báo cáo `reports/<student-id>-<short-name>.md`; hiện chỉ có `reports/2A202602420-NguyenMinhTuan.md`.
-- [ ] **Không nhất quán về vai trò của Nguyễn Minh Tuấn:** `group_project/individual/INDIVIDUAL_REPORT_NGUYEN_MINH_TUAN.md` (thêm ở commit `8c74851`) ghi *"NGƯỜI 1 — Data Collection Lead & Generation/UI"*, trong khi `reports/2A202602420-NguyenMinhTuan.md` (commit `245bf63`) ghi *"NGƯỜI 2 — Pipeline & Search Lead"*. Cần thống nhất lại để tránh trùng ownership khi chấm điểm.
-- [ ] `group_project/individual/INDIVIDUAL_REPORT_NGUYEN_MINH_TUAN.md` đang bị xoá ở working tree (trạng thái `D`, chưa commit) → quyết định giữ hay xoá rồi commit cho sạch.
-- [ ] `group_project/evaluation/RESULT.md` còn toàn bộ `TODO`, chưa đạt `tests/test_acceptance.py::test_evaluation_report_is_completed`.
+- [x] **Vai trò và báo cáo của Nguyễn Minh Tuấn:** Đã thống nhất vai trò là **NGƯỜI 2: Pipeline & Search Lead** với báo cáo duy nhất tại [`reports/2A202602420-NguyenMinhTuan.md`](reports/2A202602420-NguyenMinhTuan.md); đã xoá file thừa `group_project/individual/INDIVIDUAL_REPORT_NGUYEN_MINH_TUAN.md` (commit `b6caabf`).
+- [ ] `group_project/evaluation/RESULT.md` còn các mục `TODO`, cần hoàn thành để đạt `tests/test_acceptance.py::test_evaluation_report_is_completed`.
