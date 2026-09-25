@@ -81,4 +81,3 @@ pytest tests/test_acceptance.py -q
 
 # Toàn bộ
 pytest -q
-```
