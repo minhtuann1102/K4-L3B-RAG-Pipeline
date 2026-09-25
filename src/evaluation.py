@@ -11,6 +11,27 @@ from typing import Any
 from src.contracts import SearchResult, GenerationResult
 
 
+def _relevant_document_ids(item: dict[str, Any]) -> set[str]:
+    """Read golden-context document names while retaining old dataset support."""
+    legacy = item.get("relevant_doc_ids")
+    if isinstance(legacy, list):
+        return set(legacy)
+    context = str(item.get("expected_context", ""))
+    return {
+        part.strip()
+        for part in context.split(";")
+        if part.strip().endswith(".md")
+    }
+
+
+def _document_id(result: SearchResult) -> str:
+    """Map a chunk ID to the source file used by golden cases."""
+    source = result.get("metadata", {}).get("source")
+    if source:
+        return str(source)
+    return str(result.get("id", "")).split("::", 1)[0].replace("\\", "/").split("/")[-1]
+
+
 # =============================================================================
 # Retrieval Metrics
 # =============================================================================
@@ -87,10 +108,11 @@ def evaluate_retrieval(
 
     for query_item in queries:
         question = query_item.get("question", "")
-        relevant_ids = set(query_item.get("relevant_doc_ids", []))
+        relevant_ids = _relevant_document_ids(query_item)
 
         retrieved = results.get(question, [])
-        retrieved_ids = [r.get("id", "") for r in retrieved]
+        # Metrics are document-level: several chunks from one source are one hit.
+        retrieved_ids = list(dict.fromkeys(_document_id(r) for r in retrieved))
 
         precision_scores.append(precision_at_k(retrieved_ids, relevant_ids, k))
         recall_scores.append(recall_at_k(retrieved_ids, relevant_ids, k))
@@ -190,7 +212,7 @@ def evaluate_generation(
 
     for query_item in questions:
         question = query_item.get("question", "")
-        ground_truth = query_item.get("ground_truth_answer", "")
+        ground_truth = query_item.get("expected_answer", query_item.get("ground_truth_answer", ""))
 
         gen_result = generations.get(question)
         if not gen_result:

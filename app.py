@@ -1,11 +1,26 @@
 """
+<<<<<<< Updated upstream
 Streamlit Application — RAG Chatbot: Quản lý & Sử dụng Nhà Chung Cư.
 Phụ trách: NGƯỜI 1 (Generation & UI)
 """
 
 import os
+=======
+RAG Chatbot - Vinhomes Chung Cư
+Streamlit UI cho RAG pipeline với Gemini API
+"""
+
+>>>>>>> Stashed changes
 import streamlit as st
+import os
+import ssl
+
+# SSL fix
+ssl._create_default_https_context = ssl._create_unverified_context
+os.environ["PYTHONHTTPSVERIFY"] = "0"
+
 from dotenv import load_dotenv
+<<<<<<< Updated upstream
 
 # Set env flags before imports
 os.environ["USE_TF"] = "0"
@@ -20,6 +35,15 @@ load_dotenv()
 # Page configuration
 st.set_page_config(
     page_title="Trợ Lý AI Chung Cư | Condominium RAG Assistant",
+=======
+load_dotenv()
+
+# Import RAG components
+from src.task10_generation import generate_with_citation
+
+st.set_page_config(
+    page_title="RAG Chatbot - Vinhomes",
+>>>>>>> Stashed changes
     page_icon="🏢",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -64,6 +88,7 @@ if "messages" not in st.session_state:
 
 # Sidebar Controls
 with st.sidebar:
+<<<<<<< Updated upstream
     st.header("⚙️ Cấu hình Hệ thống")
     st.markdown("---")
     
@@ -118,6 +143,37 @@ for message in st.session_state.messages:
 # Handle Input
 query_input = st.chat_input("Nhập câu hỏi về nội quy hoặc quản lý chung cư...")
 active_query = suggested_query if suggested_query else query_input
+=======
+    st.title("🏢 RAG Chatbot")
+    st.caption("Hỏi đáp về quản lý chung cư Vinhomes")
+    top_k = st.slider("Số chunks tìm kiếm", 3, 10, 5)
+    st.divider()
+    st.caption("**Chủ đề:** Quản lý, sử dụng nhà chung cư")
+    st.caption("**Nguồn:** Thông tư 02/2016, Luật Nhà ở 2023, Nghị định 95/2024")
+
+st.title("🏢 RAG Chatbot - Vinhomes")
+st.caption("Hỏi đáp về **chi phí**, **quy định**, **dịch vụ** chung cư")
+
+# Display chat history
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+        if message.get("sources"):
+            with st.expander("📚 Xem nguồn tham khảo"):
+                for i, src in enumerate(message["sources"], 1):
+                    source_name = src.get("metadata", {}).get("source", "N/A")
+                    source_title = src.get("metadata", {}).get("title", "N/A")
+                    score = src.get("score", 0)
+                    content = src.get("content", "")[:200]
+                    st.markdown(f"**[{i}] {source_name}** ({source_title})")
+                    st.markdown(f"- Score: `{score:.3f}`")
+                    st.markdown(f"- {content}...")
+
+query = st.chat_input("Nhập câu hỏi của bạn...")
+
+if query:
+    st.session_state.messages.append({"role": "user", "content": query})
+>>>>>>> Stashed changes
 
 if active_query:
     st.session_state.messages.append({"role": "user", "content": active_query})
@@ -125,6 +181,7 @@ if active_query:
         st.markdown(active_query)
 
     with st.chat_message("assistant"):
+<<<<<<< Updated upstream
         with st.spinner("🔍 Đang tra cứu quy chế, điều lệ và tổng hợp câu trả lời..."):
             try:
                 if use_rrf:
@@ -180,3 +237,46 @@ if active_query:
                 err_msg = f" Đã xảy ra lỗi trong quá trình xử lý: {e}"
                 st.error(err_msg)
                 st.session_state.messages.append({"role": "assistant", "content": err_msg})
+=======
+        with st.spinner("🔍 Đang tìm kiếm và trả lời..."):
+            try:
+                # The public generation function owns retrieval and citations.
+                result = generate_with_citation(query, top_k=top_k)
+                sources = result["sources"]
+
+                # Display answer
+                st.markdown(result["answer"])
+
+                # Display sources
+                if sources:
+                    with st.expander("📚 Nguồn tham khảo"):
+                        for i, src in enumerate(sources, 1):
+                            source_name = src.get("metadata", {}).get("source", "N/A")
+                            source_title = src.get("metadata", {}).get("title", "N/A")
+                            score = src.get("score", 0)
+                            content = src.get("content", "")[:300]
+                            method = src.get("retrieval_method", "unknown")
+                            st.markdown(f"**[{i}] {source_name}** - {source_title}")
+                            st.markdown(f"- Method: `{method}` | Score: `{score:.4f}`")
+                            st.markdown(f"- {content}...")
+                            st.divider()
+
+                # Show retrieval source
+                st.caption(f"📌 Retrieval source: `{result['retrieval_source']}`")
+
+                # Save to history
+                st.session_state.messages.append({
+                    "role": "assistant",
+                    "content": result["answer"],
+                    "sources": sources,
+                })
+
+            except Exception as e:
+                error_msg = f"❌ Đã xảy ra lỗi: {str(e)}"
+                st.error(error_msg)
+                st.session_state.messages.append({
+                    "role": "assistant",
+                    "content": error_msg,
+                    "sources": [],
+                })
+>>>>>>> Stashed changes

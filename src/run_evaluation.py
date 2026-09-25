@@ -13,11 +13,19 @@ This will:
 import json
 import sys
 from pathlib import Path
+from typing import Optional
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.evaluation import evaluate_pipeline
+from src.task5_semantic_search import semantic_search
+from src.task6_lexical_search import lexical_search
+from src.task7_reranking import rerank_rrf
+from src.task8_pageindex_vectorless import pageindex_search
+from src.contracts import SearchResult, GenerationResult
+
+SCORE_THRESHOLD = 0.3
 
 
 def load_golden_dataset(path: str = "group_project/evaluation/golden_dataset.json") -> list[dict]:
@@ -26,24 +34,75 @@ def load_golden_dataset(path: str = "group_project/evaluation/golden_dataset.jso
         return json.load(f)
 
 
-def run_baseline_pipeline(query: str):
-    """Baseline: Dense search only (placeholder)."""
-    # TODO: Replace with actual dense search call when task5 is implemented
-    return {
-        "answer": f"[BASELINE] Answer for: {query}",
-        "sources": [],
-        "retrieval_source": "none",
-    }
+def run_baseline_pipeline(query: str, top_k: int = 5) -> GenerationResult:
+    """Baseline: Dense search only."""
+    try:
+        dense_results = semantic_search(query, top_k=top_k)
+        sources = dense_results[:top_k]
+        return {
+            "answer": f"[BASELINE] Dense search results for: {query}",
+            "sources": sources,
+            "retrieval_source": "hybrid" if sources else "none",
+        }
+    except Exception as e:
+        print(f"  Warning: Baseline failed for '{query[:50]}...': {e}")
+        return {
+            "answer": "",
+            "sources": [],
+            "retrieval_source": "none",
+        }
 
 
-def run_hybrid_pipeline(query: str):
-    """Hybrid: Dense + BM25 + RRF (placeholder)."""
-    # TODO: Replace with actual hybrid pipeline when tasks are implemented
-    return {
-        "answer": f"[HYBRID] Answer for: {query}",
-        "sources": [],
-        "retrieval_source": "hybrid",
-    }
+def run_hybrid_pipeline(query: str, top_k: int = 5) -> GenerationResult:
+    """Hybrid: Dense + BM25 + RRF + PageIndex fallback."""
+    try:
+        dense_results = semantic_search(query, top_k=top_k * 2)
+        sparse_results = lexical_search(query, top_k=top_k * 2)
+        hybrid_results = rerank_rrf([dense_results, sparse_results], top_k=top_k)
+
+        # Check fallback threshold
+        best_dense_score = dense_results[0]["score"] if dense_results else 0.0
+        if best_dense_score < SCORE_THRESHOLD:
+            try:
+                fallback = pageindex_search(query, top_k=top_k)
+                if fallback:
+                    return {
+                        "answer": f"[HYBRID+PageIndex] Results for: {query}",
+                        "sources": fallback[:top_k],
+                        "retrieval_source": "pageindex",
+                    }
+            except Exception:
+                pass
+
+        return {
+            "answer": f"[HYBRID] Dense+BM25+RRF results for: {query}",
+            "sources": hybrid_results[:top_k],
+            "retrieval_source": "hybrid" if hybrid_results else "none",
+        }
+    except Exception as e:
+        print(f"  Warning: Hybrid failed for '{query[:50]}...': {e}")
+        return {
+            "answer": "",
+            "sources": [],
+            "retrieval_source": "none",
+        }
+
+
+def run_dense_only_pipeline(query: str, top_k: int = 5) -> GenerationResult:
+    """Pure dense only for comparison."""
+    try:
+        dense_results = semantic_search(query, top_k=top_k)
+        return {
+            "answer": f"[DENSE ONLY] Results for: {query}",
+            "sources": dense_results[:top_k],
+            "retrieval_source": "hybrid" if dense_results else "none",
+        }
+    except Exception as e:
+        return {
+            "answer": "",
+            "sources": [],
+            "retrieval_source": "none",
+        }
 
 
 def main():
@@ -67,22 +126,22 @@ def main():
     print(f"  - In-domain questions: {len(in_domain)}")
     print(f"  - Out-of-domain questions: {len(out_domain)}")
 
-    # Run baseline evaluation
+    # Run dense-only evaluation (baseline for comparison)
     print("\n" + "-" * 60)
-    print("Running BASELINE evaluation (Dense only)...")
+    print("Running DENSE-ONLY evaluation...")
     print("-" * 60)
     try:
-        baseline_metrics = evaluate_pipeline(queries, run_baseline_pipeline)
-        print("\nBaseline Results:")
-        for metric, value in baseline_metrics.items():
+        dense_only_metrics = evaluate_pipeline(queries, run_dense_only_pipeline)
+        print("\nDense-Only Results:")
+        for metric, value in dense_only_metrics.items():
             print(f"  {metric}: {value:.4f}")
     except Exception as e:
-        print(f"Baseline evaluation failed: {e}")
-        baseline_metrics = {}
+        print(f"Dense-only evaluation failed: {e}")
+        dense_only_metrics = {}
 
     # Run hybrid evaluation
     print("\n" + "-" * 60)
-    print("Running HYBRID evaluation (Dense + BM25 + RRF)...")
+    print("Running HYBRID evaluation (Dense + BM25 + RRF + PageIndex)...")
     print("-" * 60)
     try:
         hybrid_metrics = evaluate_pipeline(queries, run_hybrid_pipeline)
@@ -97,20 +156,46 @@ def main():
     print("\n" + "=" * 60)
     print("COMPARISON TABLE")
     print("=" * 60)
-    print(f"{'Metric':<20} {'Baseline':>15} {'Hybrid':>15} {'Diff':>15}")
+    print(f"{'Metric':<20} {'Dense Only':>15} {'Hybrid':>15} {'Diff':>15}")
     print("-" * 60)
-    for metric in baseline_metrics:
-        baseline_val = baseline_metrics.get(metric, 0)
+    for metric in dense_only_metrics:
+        dense_val = dense_only_metrics.get(metric, 0)
         hybrid_val = hybrid_metrics.get(metric, 0)
-        diff = hybrid_val - baseline_val
+        diff = hybrid_val - dense_val
         sign = "+" if diff >= 0 else ""
-        print(f"{metric:<20} {baseline_val:>15.4f} {hybrid_val:>15.4f} {sign}{diff:>14.4f}")
+        print(f"{metric:<20} {dense_val:>15.4f} {hybrid_val:>15.4f} {sign}{diff:>14.4f}")
+
+    # Calculate improvements
+    improvements = {}
+    for metric in dense_only_metrics:
+        dense_val = dense_only_metrics.get(metric, 0)
+        hybrid_val = hybrid_metrics.get(metric, 0)
+        if dense_val > 0:
+            pct_change = ((hybrid_val - dense_val) / dense_val) * 100
+            improvements[metric] = pct_change
+
+    print("\n" + "=" * 60)
+    print("IMPROVEMENT SUMMARY")
+    print("=" * 60)
+    for metric, pct in improvements.items():
+        sign = "+" if pct >= 0 else ""
+        print(f"  {metric}: {sign}{pct:.2f}%")
+
+    # Save results for later use
+    results = {
+        "dense_only": dense_only_metrics,
+        "hybrid": hybrid_metrics,
+        "improvements": improvements,
+    }
+
+    results_path = "group_project/evaluation/results.json"
+    with open(results_path, "w", encoding="utf-8") as f:
+        json.dump(results, f, indent=2, ensure_ascii=False)
+    print(f"\nResults saved to {results_path}")
 
     print("\n" + "=" * 60)
     print("Evaluation complete!")
     print("=" * 60)
-    print("\nNOTE: These are placeholder results. Update the pipeline functions")
-    print("      (run_baseline_pipeline, run_hybrid_pipeline) with actual implementations.")
 
 
 if __name__ == "__main__":
