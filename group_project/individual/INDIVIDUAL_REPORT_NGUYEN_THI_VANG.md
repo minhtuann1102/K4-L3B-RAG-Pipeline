@@ -1,4 +1,4 @@
-# Báo cáo cá nhân - Nguyễn Minh Tuấn (Mã SV: 2A202602420)
+# Báo cáo cá nhân - Nguyễn Thị Vàng (Mã SV: 2A202602897)
 
 **Vai trò trong nhóm:** NGƯỜI 1 — Data Collection Lead & Generation / UI  
 **Chủ đề dự án:** Trợ lý AI Tư vấn Nội quy Quản lý & Sử dụng Nhà Chung cư (Condominium Management RAG Assistant)  
