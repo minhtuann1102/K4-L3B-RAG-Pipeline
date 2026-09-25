@@ -47,7 +47,7 @@ EMBEDDING_DIM = int(os.getenv("EMBEDDING_DIM", "1024"))
 EMBEDDING_BATCH_SIZE = int(os.getenv("EMBEDDING_BATCH_SIZE", "32"))
 #: bge-m3 huấn luyện với cosine nên vector được normalize trước khi index.
 NORMALIZE_EMBEDDINGS = True
-SUPPORTED_EMBEDDING_PROVIDERS = ("sentence_transformers",)
+SUPPORTED_EMBEDDING_PROVIDERS = ("sentence_transformers", "gemini")
 
 COLLECTION_NAME = "rag_documents"
 
@@ -118,13 +118,37 @@ def embed_texts(texts: list[str]) -> list[list[float]]:
             f"EMBEDDING_PROVIDER={provider!r} chưa được implement; "
             f"chọn một trong {SUPPORTED_EMBEDDING_PROVIDERS}."
         )
-    model = get_embedding_model()
-    vectors = model.encode(
-        texts,
-        batch_size=EMBEDDING_BATCH_SIZE,
-        normalize_embeddings=NORMALIZE_EMBEDDINGS,
-    )
-    return [[float(value) for value in vector] for vector in vectors]
+    
+    if provider == "gemini":
+        from google import genai
+        
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            raise ValueError("GEMINI_API_KEY not found in .env")
+        
+        client = genai.Client(api_key=api_key)
+        model_name = os.getenv("EMBEDDING_MODEL", "models/gemini-embedding-2")
+        
+        vectors = []
+        # Process each text individually as API returns single embedding for batch
+        for text in texts:
+            response = client.models.embed_content(
+                model=model_name,
+                contents=[text]
+            )
+            # Extract the embedding values
+            vectors.append(response.embeddings[0].values)
+        
+        return [[float(value) for value in vector] for vector in vectors]
+    else:
+        # sentence_transformers
+        model = get_embedding_model()
+        vectors = model.encode(
+            texts,
+            batch_size=EMBEDDING_BATCH_SIZE,
+            normalize_embeddings=NORMALIZE_EMBEDDINGS,
+        )
+        return [[float(value) for value in vector] for vector in vectors]
 
 
 def get_client():
