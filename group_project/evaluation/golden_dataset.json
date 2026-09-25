@@ -1,92 +1,97 @@
 [
   {
-    "question": "Học phí cho sinh viên năm nhất ngành Công nghệ thông tin là bao nhiêu?",
-    "ground_truth_answer": "Học phí được tính theo số tín chỉ, mỗi tín chỉ có mức phí cụ thể theo quy định của trường.",
-    "relevant_doc_ids": ["quy_dinh_hoc_phi.md"]
+    "question": "Phí quản lý chung cư được tính như thế nào?",
+    "ground_truth_answer": "Phí quản lý được tính theo diện tích căn hộ (m²). Công thức: Phí quản lý/tháng = Diện tích căn hộ × Đơn giá quản lý/m². Theo khung giá mới tại Hà Nội (Quyết định 25/2026/QĐ-UBND), giá trần đối với chung cư có thang máy là 16.500 đồng/m²/tháng.",
+    "relevant_doc_ids": ["article_01.md"]
   },
   {
-    "question": "Điều kiện để nhận học bổng khuyến khích học tập là gì?",
-    "ground_truth_answer": "Sinh viên cần có điểm trung bình tích lũy tối thiểu 8.0 và không có môn nào bị điểm F.",
-    "relevant_doc_ids": ["hoc_bong.md"]
+    "question": "Kinh phí bảo trì 2% được quy định ra sao trong Luật Nhà ở?",
+    "ground_truth_answer": "Theo Điều 152 Luật Nhà ở 2023, phí bảo trì phần sở hữu chung có mức thu là 2% giá trị căn hộ. Khoản phí này không phải đóng hàng tháng, mà được đóng một lần duy nhất khi nhận bàn giao căn hộ.",
+    "relevant_doc_ids": ["article_01.md", "02_luat_nha_o_2023_quy_dinh_quan_ly_chung_cu.md"]
   },
   {
-    "question": "Thời hạn đăng ký ký túc xá cho sinh viên mới là khi nào?",
-    "ground_truth_answer": "Đăng ký ký túc xá trong vòng 2 tuần trước khi khai giảng.",
-    "relevant_doc_ids": ["ky_tuc_xa.md"]
+    "question": "Hội nghị nhà chung cư lần đầu được tổ chức khi nào và cần bao nhiêu người tham dự?",
+    "ground_truth_answer": "Hội nghị phải được tổ chức trong thời hạn 12 tháng kể từ ngày nhà chung cư được bàn giao đưa vào sử dụng và có tối thiểu 50% số căn hộ đã được bàn giao. Phải có tối thiểu 50% đại diện chủ sở hữu căn hộ đã nhận bàn giao tham dự.",
+    "relevant_doc_ids": ["01_thong_tu_02_2016_tt_bxd_quy_che_nha_chung_cu.md"]
   },
   {
-    "question": "Quy định về số lượng tín chỉ tối đa mỗi học kỳ là bao nhiêu?",
-    "ground_truth_answer": "Số tín chỉ tối đa mỗi học kỳ là 24 tín chỉ, trừ học kỳ cuối khóa.",
-    "relevant_doc_ids": ["quy_dinh_tin_chi.md"]
+    "question": "Quyền biểu quyết tại Hội nghị nhà chung cư được tính như thế nào?",
+    "ground_truth_answer": "Quyền biểu quyết được tính theo diện tích sở hữu riêng của chủ sở hữu căn hộ: 1m² diện tích sở hữu riêng tương đương với 01 phiếu biểu quyết.",
+    "relevant_doc_ids": ["01_thong_tu_02_2016_tt_bxd_quy_che_nha_chung_cu.md"]
   },
   {
-    "question": "Thư viện trường mở cửa đến mấy giờ?",
-    "ground_truth_answer": "Thư viện mở cửa từ 7 giờ sáng đến 10 giờ tối các ngày làm việc.",
-    "relevant_doc_ids": ["thu_vien.md"]
+    "question": "Ban quản trị nhà chung cư có bao nhiêu thành viên và được tổ chức theo mô hình nào?",
+    "ground_truth_answer": "Một tòa nhà chung cư có tối thiểu 03 thành viên, cụm nhà chung cư có tối thiểu 06 thành viên. Ban quản trị có một chủ sở hữu được tổ chức theo mô hình tự quản. Ban quản trị có nhiều chủ sở hữu được tổ chức theo mô hình Hội đồng quản trị của Hợp tác xã hoặc Công ty cổ phần.",
+    "relevant_doc_ids": ["01_thong_tu_02_2016_tt_bxd_quy_che_nha_chung_cu.md"]
   },
   {
-    "question": "Làm sao để đăng ký học phần trực tuyến?",
-    "ground_truth_answer": "Sinh viên đăng nhập vào cổng thông tin sinh viên, chọn mục đăng ký học phần trong thời gian mở đăng ký.",
-    "relevant_doc_ids": ["dang_ky_hoc_phan.md"]
+    "question": "Những hành vi nào bị nghiêm cấm trong quản lý, sử dụng nhà chung cư?",
+    "ground_truth_answer": "Các hành vi bị nghiêm cấm bao gồm: sử dụng kinh phí không đúng quy định, gây thấm dột, ô nhiễm môi trường, tiếng ồn quá mức, xả rác không đúng nơi quy định, chăn thả gia súc gia cầm, tự ý cơi nới cải tạo kết cấu chịu lực, kinh doanh ngành nghề nguy hiểm dễ cháy nổ.",
+    "relevant_doc_ids": ["01_thong_tu_02_2016_tt_bxd_quy_che_nha_chung_cu.md"]
   },
   {
-    "question": "Chính sách hoàn tiền học phí khi nghỉ học được thực hiện như thế nào?",
-    "ground_truth_answer": "Sinh viên được hoàn 70% học phí nếu nghỉ học trong 2 tuần đầu, không hoàn tiền sau thời gian này.",
-    "relevant_doc_ids": ["hoan_tien.md"]
+    "question": "Chủ đầu tư có bao lâu để bàn giao kinh phí bảo trì cho Ban quản trị?",
+    "ground_truth_answer": "Trong thời hạn 07 ngày làm việc kể từ ngày Ban quản trị được UBND cấp huyện công nhận, Chủ đầu tư có trách nhiệm bàn giao toàn bộ kinh phí bảo trì (bao gồm cả gốc và lãi) sang tài khoản do Ban quản trị lập.",
+    "relevant_doc_ids": ["01_thong_tu_02_2016_tt_bxd_quy_che_nha_chung_cu.md"]
   },
   {
-    "question": "Phí dịch vụ thư viện bao gồm những gì?",
-    "ground_truth_answer": "Phí dịch vụ bao gồm phí mượn sách, phí trả trễ và phí làm thẻ thư viện mới.",
-    "relevant_doc_ids": ["thu_vien.md"]
+    "question": "Phí gửi xe tại chung cư được quy định như thế nào?",
+    "ground_truth_answer": "Phí gửi xe là khoản phí riêng, không nằm trong phí quản lý vận hành. Theo Luật Nhà ở, phí trông giữ xe do ban quản trị thỏa thuận với nhà thầu nhưng không được vượt quá khung giá do UBND tỉnh/thành phố quy định. Mức giá tham khảo 2026: xe máy 50.000-150.000 đồng/xe/tháng, ô tô dưới 9 chỗ 700.000-2.000.000 đồng/xe/tháng.",
+    "relevant_doc_ids": ["article_01.md"]
   },
   {
-    "question": "Điều kiện để được chuyển ngành là gì?",
-    "ground_truth_answer": "Sinh viên phải học ít nhất 1 năm, có điểm trung bình từ 7.0 trở lên và không vi phạm kỷ luật.",
-    "relevant_doc_ids": ["chuyen_nganh.md"]
+    "question": "Đơn vị quản lý vận hành nhà chung cư cần đáp ứng những điều kiện gì?",
+    "ground_truth_answer": "Doanh nghiệp quản lý vận hành phải có bộ máy chuyên môn nghiệp vụ gồm các bộ phận: kỹ thuật, an ninh, bảo vệ, phòng cháy chữa cháy, vệ sinh môi trường. Cán bộ, nhân viên trực tiếp thực hiện công tác quản lý vận hành kỹ thuật phải có chứng chỉ chuyên môn, nghiệp vụ theo quy định của Bộ Xây dựng.",
+    "relevant_doc_ids": ["03_nghi_dinh_95_2024_nd_cp_quan_ly_su_dung_chung_cu.md"]
   },
   {
-    "question": "Quy định về thời gian nộp học phí là khi nào?",
-    "ground_truth_answer": "Học phí phải được nộp trước ngày 15 của tháng đầu mỗi học kỳ.",
-    "relevant_doc_ids": ["quy_dinh_hoc_phi.md"]
+    "question": "Giá dịch vụ quản lý vận hành nhà chung cư bao gồm những gì và không bao gồm những gì?",
+    "ground_truth_answer": "Giá dịch vụ được xác định theo nguyên tắc tính đúng, tính đủ các chi phí dịch vụ thực tế hợp lý và lợi nhuận định mức hợp lý. Không bao gồm chi phí bảo trì phần sở hữu chung, chi phí trông giữ xe, chi phí sử dụng năng lượng, nước sinh hoạt, truyền hình, thông tin liên lạc và các chi phí dịch vụ gia tăng riêng.",
+    "relevant_doc_ids": ["03_nghi_dinh_95_2024_nd_cp_quan_ly_su_dung_chung_cu.md"]
   },
   {
-    "question": "Sinh viên có được phép học vượt tín chỉ không?",
-    "ground_truth_answer": "Sinh viên có thể đăng ký vượt tối đa 6 tín chỉ nếu có điểm trung bình từ 8.5 trở lên.",
-    "relevant_doc_ids": ["dang_ky_hoc_phan.md"]
+    "question": "Làm thẻ cư dân Vinhomes cần những giấy tờ gì và mất bao lâu?",
+    "ground_truth_answer": "Hồ sơ yêu cầu gồm: bản sao Hợp đồng mua bán căn hộ hoặc Hợp đồng thuê nhà có xác nhận của chủ hộ, CCCD/Hộ chiếu của các thành viên đăng ký, ảnh chân dung 3x4. Thời gian xử lý: từ 03-05 ngày làm việc kể từ ngày tiếp nhận hồ sơ hợp lệ.",
+    "relevant_doc_ids": ["article_02.md"]
   },
   {
-    "question": "Các loại học bổng nào được trường cung cấp cho sinh viên?",
-    "ground_truth_answer": "Trường cung cấp học bổng khuyến khích học tập, học bổng tài năng, học bổng doanh nghiệp và học bổng hỗ trợ tài chính.",
-    "relevant_doc_ids": ["hoc_bong.md"]
+    "question": "Thẻ cư dân Vinhomes có những quyền lợi và công dụng gì?",
+    "ground_truth_answer": "Thẻ cư dân Vinhomes có các công dụng: kiểm soát an ninh ra vào (quẹt mở cửa sảnh, phân tầng thang máy, ra vào cổng), gửi xe thông minh định danh cho xe máy và ô tô dưới tầng hầm, sử dụng tiện ích độc quyền như hồ bơi nội khu, sân thể thao (tennis, bóng rổ, cầu lông), công viên trung tâm và vườn nướng BBQ.",
+    "relevant_doc_ids": ["article_02.md"]
   },
   {
-    "question": "Cách tính điểm trung bình tích lũy (GPA) như thế nào?",
-    "ground_truth_answer": "GPA = Tổng (điểm chữ × số tín chỉ) / Tổng số tín chỉ đã học.",
-    "relevant_doc_ids": ["quy_dinh_diem.md"]
+    "question": "Khi mất thẻ cư dân thì phải làm gì?",
+    "ground_truth_answer": "Khi mất thẻ, cư dân phải báo ngay cho Ban Quản Lý để khóa thẻ cũ trên hệ thống và làm thủ tục cấp lại (có thu phí phôi thẻ). Thẻ cư dân là tài sản cá nhân gắn liền với căn hộ, nghiêm cấm cho người ngoài mượn hoặc chuyển nhượng trái phép.",
+    "relevant_doc_ids": ["article_02.md"]
   },
   {
-    "question": "Thủ tục xin nghỉ học tạm thời cần những gì?",
-    "ground_truth_answer": "Sinh viên cần nộp đơn xin nghỉ học có chữ ký phụ huynh và được phép của khoa.",
-    "relevant_doc_ids": ["nghi_hoc.md"]
+    "question": "Chủ đầu tư cần bàn giao những hồ sơ gì cho Ban quản trị?",
+    "ground_truth_answer": "Trong thời hạn 20 ngày làm việc kể từ ngày Ban quản trị có văn bản yêu cầu, Chủ đầu tư phải bàn giao 02 bộ hồ sơ sao y bao gồm: hồ sơ pháp lý dự án đầu tư xây dựng và hồ sơ bản vẽ hoàn công, quy trình bảo trì công trình, quy trình bảo trì thiết bị thuộc sở hữu chung, bản vẽ phân định khu vực để xe.",
+    "relevant_doc_ids": ["03_nghi_dinh_95_2024_nd_cp_quan_ly_su_dung_chung_cu.md"]
   },
   {
-    "question": "Hỗ trợ tài chính nào dành cho sinh viên có hoàn cảnh khó khăn?",
-    "ground_truth_answer": "Trường hỗ trợ qua quỹ từ thiện, vay vốn ưu đãi và miễn giảm học phí theo điều kiện cụ thể.",
-    "relevant_doc_ids": ["hoc_bong.md"]
+    "question": "Giá điện sinh hoạt năm 2026 được tính theo bậc nào?",
+    "ground_truth_answer": "Theo Quyết định 1279/QĐ-BCT, giá điện sinh hoạt năm 2026 áp dụng biểu giá 5 bậc (giảm từ 6 bậc): Bậc 1 (0-100 kWh) giá 1.984 đồng/kWh, Bậc 2 (101-200 kWh) giá 2.380 đồng/kWh, Bậc 3 (201-400 kWh) giá 2.998 đồng/kWh, Bậc 4 (401-700 kWh) giá 3.571 đồng/kWh, Bậc 5 (701+ kWh) giá 3.967 đồng/kWh. Mức giá chưa bao gồm VAT 8%.",
+    "relevant_doc_ids": ["article_01.md"]
   },
   {
-    "question": "Cách đăng ký thi lại một môn học?",
-    "ground_truth_answer": "Sinh viên đăng ký thi lại qua cổng thông tin trong thời gian đăng ký học phần.",
-    "relevant_doc_ids": ["dang_ky_hoc_phan.md"]
+    "question": "Chi phí ở chung cư cao cấp Vinhomes mỗi tháng ước tính bao nhiêu tiền?",
+    "ground_truth_answer": "Tổng chi phí ước tính cho chung cư cao cấp khoảng 12-25 triệu đồng/tháng. Các khoản chính: phí quản lý vận hành 1.200.000-3.600.000 đồng (15.000-30.000 đồng/m²), phí tiện ích nội khu 200.000-500.000 đồng, tiền điện 800.000-2.000.000 đồng, tiền nước 300.000-500.000 đồng, phí gửi xe 800.000-2.300.000 đồng, internet 300.000-600.000 đồng.",
+    "relevant_doc_ids": ["article_01.md"]
   },
   {
-    "question": "AI là gì và nó hoạt động như thế nào?",
-    "ground_truth_answer": "Xin lỗi, câu hỏi này không liên quan đến chủ đề dịch vụ đại học.",
+    "question": "Cách làm bài phỏng vấn xin việc hiệu quả?",
+    "ground_truth_answer": "Xin lỗi, câu hỏi này không liên quan đến chủ đề quản lý và sử dụng nhà chung cư.",
     "relevant_doc_ids": []
   },
   {
-    "question": "Cách nấu món phở Hà Nội ngon?",
-    "ground_truth_answer": "Xin lỗi, câu hỏi này không liên quan đến chủ đề dịch vụ đại học.",
+    "question": "Công thức nấu phở bò Hà Nội ngon?",
+    "ground_truth_answer": "Xin lỗi, câu hỏi này không liên quan đến chủ đề quản lý và sử dụng nhà chung cư.",
+    "relevant_doc_ids": []
+  },
+  {
+    "question": "AI (Trí tuệ nhân tạo) là gì và hoạt động như thế nào?",
+    "ground_truth_answer": "Xin lỗi, câu hỏi này không liên quan đến chủ đề quản lý và sử dụng nhà chung cư.",
     "relevant_doc_ids": []
   }
 ]
