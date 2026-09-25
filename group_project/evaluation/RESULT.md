@@ -1,63 +1,43 @@
-# RAG evaluation results
-
-> Đây là báo cáo evaluation của nhóm — vị trí bắt buộc theo `README.md` ("Sản phẩm phải nộp"), `docs/STEP_BY_STEP.md` (mục 9) và được kiểm tra tự động bởi `tests/test_acceptance.py::test_evaluation_report_is_completed`.
-> Template gốc nằm ở `reports/RESULT.md`. Điền hết mọi `TODO`, giữ đủ 4 heading: `Overall scores`, `A/B comparison`, `Worst performers`, `Recommendations`.
+# RAG Evaluation Results
 
 ## Run information
 
-| Field                              | Value |
-| ---------------------------------- | ----- |
-| Evaluation date                    | TODO  |
-| Framework and version              | TODO  |
-| Evaluator model                    | TODO  |
-| Generator model                    | TODO  |
-| Embedding model                    | TODO  |
-| Corpus version/commit              | TODO  |
-| Golden dataset size                | TODO  |
-| `top_k`                            | TODO  |
-| Fallback threshold and calibration | TODO  |
-
-## Configurations
-
-- **Config A — dense-only:** TODO
-- **Config B — hybrid + RRF:** TODO
-
-Hai config phải dùng cùng golden dataset, generator, evaluator, prompt và `top_k`; chỉ thay retrieval strategy.
+- Date: 2026-09-25
+- Corpus: 9 documents, 74 indexed chunks; golden set: 19 questions (16 in-domain, 3 out-of-domain).
+- Embedding: Gemini `gemini-embedding-2-preview` with FAISS; dense/BM25 candidates: 10; final `top_k`: 5.
+- Generation evaluation used a grounded extractive fallback because the Gemini endpoint returned HTTP 503 during the interactive check.
+- Fallback calibration: an in-domain management-fee query scored 0.6849, while an unrelated pho query scored 0.5143; dense threshold is 0.55 and keyword fallback minimum is 0.60.
 
 ## Overall scores
 
-| Metric            | Config A | Config B | Delta B−A |
-| ----------------- | -------: | -------: | --------: |
-| Faithfulness      |     TODO |     TODO |      TODO |
-| Answer relevance  |     TODO |     TODO |      TODO |
-| Context recall    |     TODO |     TODO |      TODO |
-| Context precision |     TODO |     TODO |      TODO |
-| **Average**       |     TODO |     TODO |      TODO |
+| Metric | Dense only | Hybrid + RRF |
+| --- | ---: | ---: |
+| Faithfulness | 0.9672 | 0.9680 |
+| Answer relevance | 0.5370 | 0.5370 |
+| Context recall | 0.8158 | 0.7632 |
+| Context precision | 0.1684 | 0.1579 |
+| MRR | 0.6798 | 0.6842 |
+
+Retrieval metrics are document-level: duplicate chunks from a source count as one hit.
 
 ## A/B comparison
 
-- Cấu hình tốt hơn: TODO
-- Evidence: TODO
-- Trade-off về latency/cost: TODO
+Dense-only has the stronger document recall and precision in this small corpus. Hybrid + RRF improves MRR by 0.0044, so the first relevant source is ranked slightly earlier, but its precision and recall decrease because BM25 introduces generic-token matches. Both configurations use the same dataset, prompt, answer formatter and `top_k`; only retrieval differs.
 
 ## Worst performers
 
-|   # | Question | Config | Faithfulness | Relevance | Recall | Precision | Failure stage             | Root cause |
-| --: | -------- | ------ | -----------: | --------: | -----: | --------: | ------------------------- | ---------- |
-|   1 | TODO     | TODO   |         TODO |      TODO |   TODO |      TODO | retrieval/generation/data | TODO       |
-|   2 | TODO     | TODO   |         TODO |      TODO |   TODO |      TODO | retrieval/generation/data | TODO       |
-|   3 | TODO     | TODO   |         TODO |      TODO |   TODO |      TODO | retrieval/generation/data | TODO       |
+| Question | Failure stage | Root cause |
+| --- | --- | --- |
+| Công thức nấu phở bò Hà Nội ngon? | Retrieval | Generic Vietnamese token overlap; weak fallback is rejected and the application gives a safe refusal. |
+| Kinh phí bảo trì 2% được quy định ra sao? | Retrieval | The question needs multiple sources, while RRF may prioritize news chunks over all required legal context. |
+| Giá điện sinh hoạt năm 2026 được tính theo bậc nào? | Retrieval | Repeated chunks from one article reduce source diversity in the top five. |
 
 ## Recommendations
 
-| Priority | Action | Evidence from failure analysis | Expected impact | How to verify |
-| -------: | ------ | ------------------------------ | --------------- | ------------- |
-|        1 | TODO   | TODO                           | TODO            | TODO          |
-|        2 | TODO   | TODO                           | TODO            | TODO          |
-|        3 | TODO   | TODO                           | TODO            | TODO          |
+1. Tune thresholds on a held-out validation set with more out-of-domain cases.
+2. Add source diversification and Vietnamese stop-word handling to BM25.
+3. Add Gemini retry/backoff and repeat generation evaluation with LLM-as-judge or human review when the provider is stable.
 
 ## Bonus experiments
 
-| Experiment | Baseline | Metric delta | Latency/cost delta | Conclusion |
-| ---------- | -------- | -----------: | -----------------: | ---------- |
-| TODO       | TODO     |         TODO |               TODO | TODO       |
+Dense + BM25 + RRF (`k=60`) improved MRR by 0.65% but reduced the four-metric average from 0.6221 to 0.6065. It remains useful for experimentation, not the default until source diversity is improved.
